@@ -1,0 +1,25 @@
+
+	{% extends "base.html" %}
+	{% block title %}Quiz{% endblock %}
+
+
+	{% block content %}
+		<form>
+			
+
+			<h1 class="body-title">You can create your own quiz here</h1>
+			<label>Enter the name of topic/program of the quiz</label><br>
+			<input type="text" name="topic" required>
+			<label>Select the type of the quiz you want to make </label>
+			<label>Enter the name of topic/program of the quiz</label><br>
+			<input type="checkbox" name="quiz-1" value="Short Answer">
+			<label for="quiz-1">Short Answer</label>
+			<input type="checkbox" name="quiz-2" value="Multiple choice">
+			<label for="quiz-2">Multiple Choice</label>
+			<label>Insert your question here</label><br>
+			<input type="text" name="quiz-title" required>
+			<label>Insert your answer here</label>
+			<input type="text" name="quiz-answer">
+
+		</form>
+	{% endblock %}

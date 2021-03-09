@@ -120,5 +120,9 @@ def dated_url_for(endpoint, **values):
 	return url_for(endpoint, **values)
 """
 
+@app.route('/create-quiz')
+def createquiz():
+	return render_template('quiz-form.html')
+
 if __name__ == "__main__":
 	app.run(host='127.0.0.1', debug=True)
