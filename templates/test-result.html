@@ -1,9 +1,94 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Quiz{% endblock %}
 
-</body>
+{% block content %}
+
+<script>
+storageUtils.storeSessionValue(storageUtils.testID, 1);
+displayResults = (data) => {
+    //code here... the parameter 'data' comes from request.ajax, it's what was returned from the API
+    const answersSection = document.getElementById('quiz-radio-section');
+    data.quizzes.forEach((question) => {
+    	const some = document.getElementById('quiz-title');
+    	const aic = document.getElementById('quiz-text');
+    //what you want to do with the quizzes here, so to get the answers (for example)
+	    if(question.type === 'multiple_choice'){
+	    	 elemUtils.createElement({type: 'h1', className: 'quiz-title', innerHTML: question.title, parent: some});
+	    	//some.innerHTML = question.title;
+	    	//document.getElementById("quiz-text").innerHTML = question.text_body;
+	    	elemUtils.createElement({type: 'h2', className: 'quiz-title', innerHTML: question.text_body, parent: some});
+		    console.log(some);
+		    	
+
+		    question.answers.forEach((answer) => { //answers is also a list so it can be iterated
+		        //whatever you want to do with the answers here
+		         var answerContainer = elemUtils.createElement({type: 'div', className: "row quiz-radio-row", parent: answersSection});
+
+                    //creates a radio button
+                    //var answerButton = elemUtils.createElement({type: 'input', className: "quiz-radio-btn", parent: answerContainer});
+              //  document.getElementById('quiz-text').innerHTML = question.text_body;
+		        if(question.type !== 'info'){
+		        	//const gna = document.getElementByClassName('answers');
+		        	//elemUtils.createElement({type: 'p', className: 'answers', innerHTML: answer.body, parent: gna});
+		        	//const answer = question.answers[i];
+					var a = document.getElementsByClassName('question');
+                   
+                	console.log(a);
+                   // answerButton.checked = i === previousAnswer; //if there is a previously selected answer in this list of answers - and it's the one we're currently creating on the page - check it's radio button
+
+                    //creates a lable which corresponds to the radio button created above
+                    //var buttonLabel = elemUtils.createElement({type: 'label', innerHTML: answer.body, parent: answerContainer});
+                   // buttonLabel.htmlFor = answer.answer_id;
+		        	document.getElementById('answer').innerHTML = answer.body;
+		        	document.getElementById('answer').innerHTML = answer.body;
+		        	document.getElementById('answer').innerHTML = answer.body;
+			        if(answer.is_correct && answer.is_selected){
+			        	
+			        	document.getElementById('answer').innerHTML = answer.body;
+			        	document.getElementById("answer").style.borderColor = "green";
+			  			document.getElementById("answer").style.borderStyle = "solid";
+			  			document.getElementById("answer").style.backgroundColor = "lightgreen";	
+			  			document.getElementById('feedback').innerHTML = 'You answer is correct!';
+			  			
+			  		}else if(!answer.is_correct && answer.is_selected){
+			  			document.getElementById('answer').innerHTML = answer.body;
+			  			document.getElementById("answer").style.borderColor = "red";
+			  			document.getElementById("answer").style.borderStyle = "solid";
+			  			document.getElementById("answer").style.backgroundColor = "pink";	
+			  			document.getElementById('feedback').innerHTML = 'You answer is wrong!';
+			  		}else{
+			  			document.getElementById('answer').innerHTML = answer.body;
+			  			document.getElementById("answer").style.borderColor = "red";
+			  			document.getElementById("answer").style.borderStyle = "solid";
+			  			document.getElementById("answer").style.backgroundColor = "pink";
+			  		}
+		        }
+		        console.log(document.getElementById('answer'))
+		    }) 
+		}
+	});
+
+}
+request.ajax({endpoint: 'tests', extension: storageUtils.getSessionValue(storageUtils.testID), handler: displayResults});
+//this is for the HTML tag
+
+
+</script>
+<div class="grid-body-item contents column quiz-body">
+		<div id="quiz-title">
+
+			
+		</div>
+		<p id="quiz-text"></p>
+<div id="quiz-radio-section" class="column quiz-radio-section" style="display: none;"></div>
+		<div id="answers" class="answers">
+			<div id="quiz-radio-section" class="column quiz-radio-section" style="display: none;"></div>
+			<p id="answer " class="answer"></p><br><p id="answer"  class="answer"></p><br><p id="answer" class="answer"></p>
+		</div>
+		<p id="feedback"></p>
+</div>
+{% endblock %}
+
 </html>
