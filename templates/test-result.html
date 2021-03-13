@@ -15,12 +15,12 @@ displayResults = (data) => {
     	const aic = document.getElementById('quiz-text');
     //what you want to do with the quizzes here, so to get the answers (for example)
 	    if(question.type === 'multiple_choice'){
-	    	 elemUtils.createElement({type: 'h1', className: 'quiz-title', innerHTML: question.title, parent: some});
+	    	elemUtils.createElement({type: 'h1', className: 'quiz-title', innerHTML: question.title, parent: some});
 	    	//some.innerHTML = question.title;
 	    	//document.getElementById("quiz-text").innerHTML = question.text_body;
 	    	elemUtils.createElement({type: 'h2', className: 'quiz-title', innerHTML: question.text_body, parent: some});
 		    console.log(some);
-		    	
+
 
 		    question.answers.forEach((answer) => { //answers is also a list so it can be iterated
 		        //whatever you want to do with the answers here
@@ -33,18 +33,12 @@ displayResults = (data) => {
 		        	//const gna = document.getElementByClassName('answers');
 		        	//elemUtils.createElement({type: 'p', className: 'answers', innerHTML: answer.body, parent: gna});
 		        	//const answer = question.answers[i];
-					var a = document.getElementsByClassName('question');
-                   
+					var a = document.getElementsByClassName('question');                   
                 	console.log(a);
-                   // answerButton.checked = i === previousAnswer; //if there is a previously selected answer in this list of answers - and it's the one we're currently creating on the page - check it's radio button
-
-                    //creates a lable which corresponds to the radio button created above
-                    //var buttonLabel = elemUtils.createElement({type: 'label', innerHTML: answer.body, parent: answerContainer});
-                   // buttonLabel.htmlFor = answer.answer_id;
-		        	document.getElementById('answer').innerHTML = answer.body;
-		        	document.getElementById('answer').innerHTML = answer.body;
-		        	document.getElementById('answer').innerHTML = answer.body;
+                   	var b = document.getElementById('answers');                   	                   	
+		        	elemUtils.createElement({type: 'p', className: 'answer', innerHTML: answer.body, parent: some});
 			        if(answer.is_correct && answer.is_selected){
+			        	
 			        	
 			        	document.getElementById('answer').innerHTML = answer.body;
 			        	document.getElementById("answer").style.borderColor = "green";
@@ -53,16 +47,12 @@ displayResults = (data) => {
 			  			document.getElementById('feedback').innerHTML = 'You answer is correct!';
 			  			
 			  		}else if(!answer.is_correct && answer.is_selected){
+			  			//elemUtils.createElement({type: 'p', className: 'answer', innerHTML: answer.body, parent: some});
 			  			document.getElementById('answer').innerHTML = answer.body;
 			  			document.getElementById("answer").style.borderColor = "red";
 			  			document.getElementById("answer").style.borderStyle = "solid";
 			  			document.getElementById("answer").style.backgroundColor = "pink";	
 			  			document.getElementById('feedback').innerHTML = 'You answer is wrong!';
-			  		}else{
-			  			document.getElementById('answer').innerHTML = answer.body;
-			  			document.getElementById("answer").style.borderColor = "red";
-			  			document.getElementById("answer").style.borderStyle = "solid";
-			  			document.getElementById("answer").style.backgroundColor = "pink";
 			  		}
 		        }
 		        console.log(document.getElementById('answer'))
@@ -84,10 +74,12 @@ request.ajax({endpoint: 'tests', extension: storageUtils.getSessionValue(storage
 		<p id="quiz-text"></p>
 <div id="quiz-radio-section" class="column quiz-radio-section" style="display: none;"></div>
 		<div id="answers" class="answers">
+
 			<div id="quiz-radio-section" class="column quiz-radio-section" style="display: none;"></div>
 			<p id="answer " class="answer"></p><br><p id="answer"  class="answer"></p><br><p id="answer" class="answer"></p>
+			<p id="feedback"></p>
 		</div>
-		<p id="feedback"></p>
+		
 </div>
 {% endblock %}
 
